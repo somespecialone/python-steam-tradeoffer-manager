@@ -73,7 +73,7 @@ class ManagerTradeOffer(Generic[_B]):
     @property
     def is_our_offer(self) -> bool:
         """Consider that this property """
-        return True  # "ManagerTradeOffer" wrap only for our offers
+        return True  # "ManagerTradeOffer" wrap only our offers
 
     @property
     def is_active(self) -> bool:

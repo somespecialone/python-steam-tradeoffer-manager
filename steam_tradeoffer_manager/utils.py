@@ -12,7 +12,7 @@ class _HasIsReadyProtocol(Protocol):
 
 
 def ready_required(func):
-    @wraps(func)
+    @wraps(func)  # FIXME: why this won't work?
     def wrapper(self: _HasIsReadyProtocol, *args, **kwargs):
         if self.is_ready():
             return func(self, *args, **kwargs)

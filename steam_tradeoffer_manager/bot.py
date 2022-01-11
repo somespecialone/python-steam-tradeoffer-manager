@@ -189,14 +189,12 @@ class ManagerBot(SteamBot[_I, _M]):
         partner_id32, token = parse_trade_url(trade_url)
         partner = self.get_user(partner_id32) or await self.fetch_user(partner_id32)
 
-        return ManagerTradeOffer(
-            _steam_offer=steam.TradeOffer(
-                message=message,
-                token=token,
-                items_to_send=send_items,
-                items_to_receive=receive_items),
-            owner=self,
-            partner=partner
+        return self.create_offer(
+            partner,
+            token,
+            message,
+            send_items,
+            receive_items
         )
 
     @ready_required
@@ -227,15 +225,12 @@ class ManagerBot(SteamBot[_I, _M]):
             if offer.cancel_delay:
                 offer._set_cancel_timeout()
 
-            self.loop.create_task(
-                self.ws._connection.poll_trades(),
-                name=f"{self.user} poll trades task"
-            )  # TODO: check if this is necessary
+            # TODO: check if this is necessary
+            self.loop.create_task(self.ws._connection.poll_trades(), name=f"{self.user} poll trades task")
 
             self.dispatch_to_manager("manager_trade_send", offer)
         else:
-            raise ValueError("Cannot send trade."
-                             f"Owner of this offer {offer.id} is {offer.owner}-bot")
+            raise ValueError(f"Cannot send trade. Owner of this offer {offer.id} is {offer.owner}-bot")
 
     async def on_trade_receive(self, trade: steam.TradeOffer) -> None:
         """
