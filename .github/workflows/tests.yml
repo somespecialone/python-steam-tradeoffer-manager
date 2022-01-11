@@ -22,7 +22,12 @@ jobs:
           virtualenvs-in-project: true
       - run: poetry install
 
-      - name: Run PyTest
-        run: poetry run pytest
+      - name: "Run PyTest with coverage"
+        run: poetry run pytest --cov --cov-report=xml
+
+      - name: "Upload coverage report to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
 
         timeout-minutes: 30
