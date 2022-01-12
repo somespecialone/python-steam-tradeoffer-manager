@@ -136,10 +136,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
         try:
             await self.wait_for("ready", timeout=timeout)
             if self.randomizer is not None:
-                self._refresh_task = self.loop.create_task(
-                    self._restarter(),
-                    name=f"{self.user}-bot refresh task"
-                )
+                self._refresh_task = self.loop.create_task(self._restarter(), name=f"{self.user}-bot refresh task")
 
         except asyncio.TimeoutError:
             _log.warning(f"Timeout has been reached for {self.id}")
@@ -203,7 +200,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
             import warnings
 
             warnings.warn(f'Unstopped bot {self}!', ResourceWarning, source=self)
-            self._refresh_task.cancel()
+            if self._refresh_task: self._refresh_task.cancel()
             # maybe asyncio.call_exception_handler needed
         if self.pool: del self.pool[self.id]
         super().__del__()

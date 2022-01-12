@@ -52,14 +52,14 @@ class ManagerDispatchMixin:
         else:
             self._schedule_event(coro, method, bot, *args, **kwargs)
 
-    if TYPE_CHECKING:
+    if TYPE_CHECKING:  # pragma: no cover
         from .offer import ManagerTradeOffer
         from .inventory import BotInventory
 
         # manager events
         async def on_close_trade_offer(self, bot, trade: ManagerTradeOffer) -> None:
             """
-            Calls when bot `ManagerTradeOffer` was closed
+            Calls when `ManagerTradeOffer` was closed
             (decline/accept by partner, expires or cancelled by timeout).
             :param bot: bot instance who's sent signal
             :param trade: `ManagerTradeOffer` that was closed

@@ -27,8 +27,8 @@ class ManagerTradeOffer(Generic[_B]):
     # _state_event: asyncio.Event = field(default_factory=asyncio.Event)  # maybe useless
 
     @property
-    def id(self):
-        return self._steam_offer.id
+    def id(self) -> int | None:
+        return self._steam_offer.id if self._steam_offer._has_been_sent else None
 
     @property
     def state(self):
@@ -72,7 +72,6 @@ class ManagerTradeOffer(Generic[_B]):
 
     @property
     def is_our_offer(self) -> bool:
-        """Consider that this property """
         return True  # "ManagerTradeOffer" wrap only our offers
 
     @property
@@ -84,7 +83,7 @@ class ManagerTradeOffer(Generic[_B]):
 
     @property
     def cancel_delay(self) -> timedelta | None:
-        return self._cancel_delay or self.owner.offer_cancel_delay
+        return self._cancel_delay if self._cancel_delay is not None else self.owner.offer_cancel_delay
 
     @cancel_delay.setter
     def cancel_delay(self, value: timedelta | None):
@@ -105,6 +104,8 @@ class ManagerTradeOffer(Generic[_B]):
         self._cancel_delay_timer = loop.call_later(self.cancel_delay.total_seconds(), _cancel_timeout)
 
     async def confirm(self):
+        """Confirms the trade offer.
+        This rarely needs to be called as the client handles most of these."""
         await self._steam_offer.confirm()
         self._cancel_delay_timer.cancel()
 

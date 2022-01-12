@@ -222,8 +222,7 @@ class ManagerBot(SteamBot[_I, _M]):
         if offer.owner is self:
             await offer.partner.send(trade=offer._steam_offer)
             self.manager_trades.add(offer)
-            if offer.cancel_delay:
-                offer._set_cancel_timeout()
+            if offer.cancel_delay is not None: offer._set_cancel_timeout()
 
             # TODO: check if this is necessary
             self.loop.create_task(self.ws._connection.poll_trades(), name=f"{self.user} poll trades task")
@@ -240,7 +239,7 @@ class ManagerBot(SteamBot[_I, _M]):
             await trade.accept()
             fetched = set()
             for item in trade.items_to_receive:
-                if item.game.name not in fetched and item.game.id:
+                if item.game().name not in fetched and item.game().id:
                     await self.inventory.fetch_game_inventory(item.game())
                     fetched.add(item.game().name or item.game().id)
 
@@ -252,6 +251,7 @@ class ManagerBot(SteamBot[_I, _M]):
                 manager_trade_offer._steam_offer = trade  # ensure that offer instance is updated
                 if manager_trade_offer._cancel_delay_timer:
                     manager_trade_offer._cancel_delay_timer.cancel()
+
                 # manager_trade_offer.state_event.set()
 
                 self.dispatch_to_manager("close_trade_offer", manager_trade_offer)

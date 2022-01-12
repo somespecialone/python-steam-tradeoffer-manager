@@ -55,7 +55,7 @@ class ManagerBotTrades(MutableMapping[TradeOfferId, ManagerTradeOffer[_B]], Gene
     def __setitem__(self, k: TradeOfferId, v: ManagerTradeOffer) -> None:
         if not v.id:
             raise ValueError("Only sent offers can be stored")
-        if k == v.id:
+        if k != v.id:
             raise ValueError("Key and offer id must be the same")
         self._storage[k] = v
 

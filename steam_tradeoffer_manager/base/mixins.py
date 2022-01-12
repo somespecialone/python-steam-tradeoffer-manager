@@ -86,7 +86,7 @@ class ConstraintsMixin:
         self.__storage__[self.dimension].difference_update(self._hashes)  # clean up hashes while garbage collecting
 
 
-class _MappingPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):
+class _MappingPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):  # pragma: no cover
     """Mixin for bot. Contains required methods to interact with pool"""
     # maps to ids and pool
     __ids__: Final[dict[str, _I]] = {}
@@ -128,8 +128,8 @@ class _PropertyPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):
         return f"<{self.__class__.__name__} id={self.id}>"
 
 
-# deprecated
-class _MagickPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):
+# deprecated and might not work
+class _MagickPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):  # pragma: no cover
     """Mixin for bot. Contains required methods to interact with pool"""
 
     # some magic to add id attr to instance
