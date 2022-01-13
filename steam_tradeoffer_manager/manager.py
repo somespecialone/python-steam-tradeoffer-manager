@@ -21,7 +21,7 @@ _I = TypeVar("_I", bound=int)
 
 
 class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
-    """"""
+    """Manager class..."""
     randomizer = ONCE_EVERY.SIX_HOURS
     offer_cancel_delay: timedelta | None = timedelta(minutes=5)
     prefetch_games: tuple[Game] = ()

@@ -22,7 +22,7 @@ class ManagerTradeOffer(Generic[_B]):
     partner: User | None
 
     _cancel_delay: timedelta | None = None
-    _cancel_delay_timer: asyncio.TimerHandle | None = None
+    _cancel_delay_timer: asyncio.Task | None = None
 
     # _state_event: asyncio.Event = field(default_factory=asyncio.Event)  # maybe useless
 
@@ -71,15 +71,12 @@ class ManagerTradeOffer(Generic[_B]):
         return self._steam_offer.is_gift()  # properly call it 'asking for a gift' :)
 
     @property
-    def is_our_offer(self) -> bool:
+    def is_our_offer(self) -> bool:  # pragma: no cover
         return True  # "ManagerTradeOffer" wrap only our offers
 
     @property
     def is_active(self) -> bool:
-        return self.state not in (
-            TradeOfferState.Active,
-            TradeOfferState.ConfirmationNeed
-        ) or not self._steam_offer._has_been_sent
+        return self.state in (TradeOfferState.Active, TradeOfferState.ConfirmationNeed)
 
     @property
     def cancel_delay(self) -> timedelta | None:
@@ -97,11 +94,12 @@ class ManagerTradeOffer(Generic[_B]):
 
     def _set_cancel_timeout(self):
         async def _cancel_timeout():
+            await asyncio.sleep(self.cancel_delay.total_seconds())
             if self.is_active:
                 await self.cancel()
 
         loop: asyncio.AbstractEventLoop = self.owner.loop  # type hinting won't work :(
-        self._cancel_delay_timer = loop.call_later(self.cancel_delay.total_seconds(), _cancel_timeout)
+        self._cancel_delay_timer = loop.create_task(_cancel_timeout())
 
     async def confirm(self):
         """Confirms the trade offer.

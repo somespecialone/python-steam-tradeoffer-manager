@@ -123,9 +123,8 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
             self._state = BotState.Stopped
             _log.info(f"Bot {self} is stopped")
 
-        finally:  # ensure that bot has to be closed/stopped
-            if not self.is_closed():
-                await self.close()
+        # finally:  # ensure that bot has to be closed/stopped
+        #     if not self.is_closed(): await self.close()
 
     async def start(self, *, timeout: int = 60) -> None:
         """Starts bot in separate task and wait until he is ready.
@@ -144,7 +143,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
     async def _restarter(self):
         await self.wait_until_ready()
 
-        while not self.is_closed():
+        while not self.is_closed():  # might prevent from restarting when bot is closed/stopped by user
             await asyncio.sleep(self.randomizer())
             await self.restart()
 
@@ -178,7 +177,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
 
     @property
     def errors(self) -> list[Exception]:
-        # maybe there should be logic in future
+        # there may be logic in future
         return self._errors
 
     def stop(self):

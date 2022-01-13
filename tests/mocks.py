@@ -2,12 +2,10 @@ import asyncio
 from unittest.mock import AsyncMock
 
 import pytest
+import steam
 from pytest_mock import MockerFixture
 
-import steam
-
 from const_data import *
-
 
 __all__ = ("mock_user", "mock_client", "mock_trade")
 
@@ -39,6 +37,7 @@ class WsMock:
         self._connection = state
 
     async def change_presence(self, *args, **kwargs): pass
+
     async def handle_close(self): pass
 
 
@@ -51,6 +50,7 @@ async def login(self: steam.Client, username: str, password: str, *, shared_secr
 
     self.http.logged_in = True
     self.http.user = steam.ClientUser(state=self._connection, data=CLIENT_USER_DICT)
+    self.http.user.name = BOT_USER_NAME
     self.dispatch("login")
 
 
@@ -71,13 +71,6 @@ async def close(self: steam.Client) -> None:
         return
 
     self._closed = True
-
-    if self.ws is not None:
-        try:
-            await self.change_presence(game=steam.Game(id=0))  # disconnect from games
-            await self.ws.handle_close()
-        except steam.ConnectionClosed:
-            pass
 
     self.http.logged_in = False
     self.http.user = None

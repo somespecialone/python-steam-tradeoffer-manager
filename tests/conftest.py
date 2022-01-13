@@ -3,20 +3,9 @@ import platform
 
 import pytest
 
-from steam_tradeoffer_manager import ManagerBot, ManagerTradeOffer
-
 from mocks import *
 from const_data import *
-
-
-@pytest.fixture
-def bot_data():
-    return {
-        "username": BOT_USERNAME,
-        "password": BOT_PASSWORD,
-        "shared_secret": SHARED_SECRET,
-        "identity_secret": IDENTITY_SECRET,
-    }
+from steam_tradeoffer_manager import ManagerBot
 
 
 @pytest.fixture(scope="session")
@@ -27,27 +16,22 @@ def event_loop():
 
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
-    loop.close()
+    # loop.close() # don't know why but this throws many warnings about destroying pending tasks
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="class")
 async def bot(event_loop):
     bot_instance = ManagerBot(**{
         "username": BOT_USERNAME,
         "password": BOT_PASSWORD,
         "shared_secret": SHARED_SECRET,
         "identity_secret": IDENTITY_SECRET,
+        "id": BOT_ID
     })
     bot_instance.loop = event_loop
-    await bot_instance.start()
 
     yield bot_instance
 
+    if not bot_instance.is_closed(): await bot_instance.close()
+
     bot_instance.__del__()
-
-
-@pytest.fixture
-async def trade(bot, bot_data):
-    trade_instance: ManagerTradeOffer = await bot.create_offer_from_trade_url(TRADE_URL, message=TRADE_MSG)
-    trade_instance.cancel_delay = timedelta(seconds=0)  # instant cancellation
-    return trade_instance

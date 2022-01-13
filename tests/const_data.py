@@ -6,6 +6,8 @@ BOT_PASSWORD = "Bot password"
 SHARED_SECRET = "Bot shared secret"
 IDENTITY_SECRET = "Bot identity secret"
 BOT_TRADE_URL = "https://steamcommunity.com/tradeoffer/new/?partner=2096455343&token=BOT_URL_TOKEN"
+BOT_USER_NAME = "Bot-test"
+BOT_ID = 76561198081339055
 
 USER_DICT = {
     "steamid": "76561198081339055",

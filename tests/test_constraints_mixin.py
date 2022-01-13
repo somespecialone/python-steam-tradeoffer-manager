@@ -1,7 +1,7 @@
 import pytest
 
-from steam_tradeoffer_manager.base.exceptions import ConstraintException
 from steam_tradeoffer_manager.base import ConstraintsMixin
+from steam_tradeoffer_manager.base.exceptions import ConstraintException
 
 
 @pytest.fixture

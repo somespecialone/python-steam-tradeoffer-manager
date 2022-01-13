@@ -10,7 +10,7 @@ from .enums import ONCE_EVERY
 __all__ = ('SteamBotPool',)
 
 _log = logging.getLogger(__name__)
-_B = TypeVar('_B', bound="bot.SteamBot")
+_B = TypeVar('_B', bound="_bot.SteamBot")
 _I = TypeVar('_I')
 _D = TypeVar('_D')  # not sure if this is working
 
@@ -64,13 +64,12 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
         return bot
 
     async def shutdown(self) -> None:
-        tasks = [self.loop.create_task(bot.stop(), name=f"{bot.id} stop task") for bot in self]
-        if tasks:
+        if tasks := [self.loop.create_task(bot.stop(), name=f"{bot.id} stop task") for bot in self]:
             await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
 
     def _unbind(self, bot: _B) -> None:
         bot._pool = None
-        del self._store[id]
+        del self._store[bot.id]
 
     def _bind(self, bot: _B) -> None:
         if not bot.id:
@@ -113,4 +112,4 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
         return iter(self._store.values())
 
 
-from . import bot
+from . import bot as _bot
