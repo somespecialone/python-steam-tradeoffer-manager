@@ -155,7 +155,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
         await self.start()
 
     @property
-    def randomizer(self) -> Callable[[], int] | None:
+    def randomizer(self) -> Callable[[...], int] | None:
         try:
             return self._randomizer or self.pool.randomizer
         except AttributeError:  # if bot don't bounded to pool

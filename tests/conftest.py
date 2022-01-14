@@ -4,8 +4,8 @@ import platform
 import pytest
 
 from mocks import *
-from const_data import *
-from steam_tradeoffer_manager import ManagerBot
+from data import *
+from steam_tradeoffer_manager import ManagerBot, TradeOfferManager
 
 
 @pytest.fixture(scope="session")
@@ -21,13 +21,7 @@ def event_loop():
 
 @pytest.fixture(scope="class")
 async def bot(event_loop):
-    bot_instance = ManagerBot(**{
-        "username": BOT_USERNAME,
-        "password": BOT_PASSWORD,
-        "shared_secret": SHARED_SECRET,
-        "identity_secret": IDENTITY_SECRET,
-        "id": BOT_ID
-    })
+    bot_instance = ManagerBot(**bot_data())
     bot_instance.loop = event_loop
 
     yield bot_instance

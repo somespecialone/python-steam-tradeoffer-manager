@@ -82,6 +82,7 @@ class ManagerBot(SteamBot[_I, _M]):
             password: str,
             shared_secret: str,
             identity_secret: str,
+            *,
             offer_cancel_delay: timedelta | None = None,
             prefetch_games: tuple[SteamGame] = (),
             **kwargs
@@ -233,17 +234,16 @@ class ManagerBot(SteamBot[_I, _M]):
 
     async def on_trade_receive(self, trade: steam.TradeOffer) -> None:
         """
-        Fetches and save inventories when received trade offer
+        Fetches and save inventories when receives trade offer from user in whitelist.
         """
         if trade.partner.id64 in (self.whitelist or ()):
             await trade.accept()
             fetched = set()
             for item in trade.items_to_receive:
-                if item.game().name not in fetched and item.game().id:
-                    await self.inventory.fetch_game_inventory(item.game())
-                    fetched.add(item.game().name or item.game().id)
+                if item.game.name not in fetched and item.game.id not in fetched:
+                    await self.inventory.fetch_game_inventory(item.game)
+                    fetched.add(item.game.name or item.game.id)
 
-    # TODO: there or somewhere after dispatch needs to clear trades from this closed trade,
     def _close_trade_offer(self, trade: steam.TradeOffer):
         if trade.is_our_offer():  # there safe to call is_our_offer
             if trade.id in self.manager_trades:

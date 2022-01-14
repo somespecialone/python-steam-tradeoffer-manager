@@ -3,7 +3,7 @@ import asyncio
 import pytest
 from steam import ClientException
 
-from const_data import *
+from data import *
 from steam_tradeoffer_manager import ManagerTradeOffer
 from steam_tradeoffer_manager.utils import parse_trade_url
 

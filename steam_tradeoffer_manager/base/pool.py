@@ -7,19 +7,19 @@ from .exceptions import ConstraintException
 from .mixins import PoolBotMixin
 from .enums import ONCE_EVERY
 
-__all__ = ('SteamBotPool',)
+__all__ = ("SteamBotPool",)
 
 _log = logging.getLogger(__name__)
-_B = TypeVar('_B', bound="_bot.SteamBot")
-_I = TypeVar('_I')
-_D = TypeVar('_D')  # not sure if this is working
+_B = TypeVar("_B", bound="_bot.SteamBot")
+_I = TypeVar("_I")
+_D = TypeVar("_D")  # not sure if this is working
 
 
 class SteamBotPool(Generic[_I, _B], AbstractBasePool):
     """Steam bots pool"""
 
     # randomize time to sleep between restarting bots in pool instances of this class
-    randomizer: Callable[[], int] | None = ONCE_EVERY.FOUR_HOURS
+    randomizer: Callable[[...], int] | None = ONCE_EVERY.FOUR_HOURS
     whitelist: set[int] | None = None  # whitelist with steam id's of admins/owners/etc
     domain: str = "steam.py"  # domain to register new api key
 
@@ -38,6 +38,8 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
         Add bot instance to pool
         :param bot: bot instance
         :param raise_: raise `ConstraintException` if bot in this pool or bounded to other pool. Default - `True`
+        :return `None`
+        :raises ConstraintException
         """
         if bot.pool:
             import warnings

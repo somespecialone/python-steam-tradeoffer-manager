@@ -6,7 +6,7 @@ from pytest_mock import MockerFixture
 
 from steam_tradeoffer_manager import ManagerBotState, ManagerBot
 
-from const_data import *
+from data import *
 
 
 class TestBotExceptions:

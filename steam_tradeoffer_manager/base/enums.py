@@ -15,11 +15,11 @@ class BotState(enum.Enum):
 
 class Timings:
     @staticmethod
-    def _randomizer(*_range: int):
-        return lambda: round(randint(*_range) * 60 * 60 + (random() * 60 * 60))
+    def _randomizer(*_range: int) -> Callable[[...], int]:
+        return lambda *a, **ka: round(randint(*_range) * 60 * 60 + (random() * 60 * 60))
 
     @classmethod
-    def custom(cls, from_: int, to: int) -> Callable[[], int]:
+    def custom(cls, from_: int, to: int) -> Callable[[...], int]:
         return cls._randomizer(from_, to)
 
     HOUR = _randomizer(0, 1)  # not recommended

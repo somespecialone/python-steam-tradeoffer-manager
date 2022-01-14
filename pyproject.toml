@@ -39,7 +39,7 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["steam_tradeoffer_manager"]
-omit = ["*/_monkey_patch.py", "*/__init__.py"]
+omit = ["*/_monkey_patch.py", "*/__init__.py", "*/abc.py"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

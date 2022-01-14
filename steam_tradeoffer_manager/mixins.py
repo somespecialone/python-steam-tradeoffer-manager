@@ -19,6 +19,7 @@ class ManagerDispatchMixin:
     def errors(self) -> list[Exception]:
         return getattr(self, "_errors", [])
 
+    # TODO: i sure i forgot smth there
     async def on_error(self, event: str, error: Exception, *args, **kwargs):
         if errors := getattr(self, "_errors", None):
             errors.append(error)

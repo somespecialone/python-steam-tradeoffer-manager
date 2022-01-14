@@ -16,7 +16,7 @@ ItemAlias: TypeAlias = "int | BotItem"
 # extremely rarely asset id can be not unique
 class ManagerItems(MutableMapping[AssetId, BotItem[_B]], Generic[_M, _B]):
     """Items storage for TradeOfferManager.
-    Contain all items from `ManagerBot` bounded to `owner` manager"""
+    Contain all items from `ManagerBot`s bounded to `owner` manager"""
 
     def __init__(self, owner: _M):
         self.owner = owner
@@ -27,9 +27,6 @@ class ManagerItems(MutableMapping[AssetId, BotItem[_B]], Generic[_M, _B]):
 
     def get(self, k: AssetId, _default: _D = None) -> BotItem | _D:
         return self._storage.get(k, _default)
-
-    def pop(self, id: AssetId) -> BotItem:
-        return self._storage.pop(id)
 
     def __setitem__(self, k: AssetId, v: BotItem) -> None:
         if k == v.asset_id:

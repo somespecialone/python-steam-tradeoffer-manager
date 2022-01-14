@@ -46,11 +46,9 @@ class ManagerBotTrades(MutableMapping[TradeOfferId, ManagerTradeOffer[_B]], Gene
         return self._storage.get(k, _default)
 
     def pop(self, id: TradeOfferId) -> ManagerTradeOffer:
-        return self._storage.pop(id)
-
-    @property
-    def storage(self):
-        return self._storage
+        offer = self[id]
+        del self[id]
+        return offer
 
     def __setitem__(self, k: TradeOfferId, v: ManagerTradeOffer) -> None:
         if not v.id:
@@ -60,6 +58,8 @@ class ManagerBotTrades(MutableMapping[TradeOfferId, ManagerTradeOffer[_B]], Gene
         self._storage[k] = v
 
     def __delitem__(self, v: TradeOfferId) -> None:
+        if self[v].is_active:
+            raise TypeError("You can't delete active offer!")
         del self._storage[v]
 
     def __getitem__(self, k: TradeOfferId) -> ManagerTradeOffer:

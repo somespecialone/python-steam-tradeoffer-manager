@@ -4,8 +4,6 @@ site_url: https://somespecialone.github.io/python-steam-tradeoffer-manager/
 repo_name: somespecialone/python-steam-tradeoffer-manager
 repo_url: https://github.com/somespecialone/python-steam-tradeoffer-manager/
 
-edit_uri: edit/dev/docs/
-
 copyright: Copyright &copy; 2022 <a href="https://github.com/somespecialone" target="_blank" rel="noopener">Dmitriy Tkachenko</a>
 
 theme:
