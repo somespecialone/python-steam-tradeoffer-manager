@@ -24,7 +24,7 @@ class TestBot:
     @pytest.mark.asyncio
     async def test_inventory(self, bot):
         await bot.inventory.fetch_game_inventory(ITEMS_GAME)
-        assert bot.inventory.get(ITEMS_GAME)
+        assert bot.inventory.get_game_inventory(ITEMS_GAME)
 
     @pytest.mark.asyncio
     async def test_inventory_update(self, bot, mocker: MockerFixture):
@@ -38,7 +38,7 @@ class TestBot:
 
     @pytest.mark.asyncio
     async def test_all_inventory(self, bot):
-        inv = bot.inventory.get(ITEMS_GAME)
+        inv = bot.inventory.get_game_inventory(ITEMS_GAME)
         assert bot.inventory.game_inventories == [inv]
 
     @pytest.mark.asyncio
