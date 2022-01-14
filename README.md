@@ -7,4 +7,17 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager/badge)](https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager)
 [![steam](https://shields.io/badge/steam-1b2838?logo=steam)](https://store.steampowered.com/)
 
+## Installation
+
+```bash
+# using pip
+$ pip install steam-tradeoffer-manager
+
+# using pipenv
+$ pipenv install steam-tradeoffer-manager
+
+# using poetry
+$ poetry add steam-tradeoffer-manager
+```
+
 ***Coming soon...***
