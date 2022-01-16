@@ -10,7 +10,7 @@ from .item import BotItem
 from .offer import ManagerTradeOffer
 from .inventory import GamesInventory
 from .trades import ManagerBotTrades
-from .utils import parse_trade_url, ready_required
+from .utils import parse_trade_url, ready_required, copy_user
 
 __all__ = ("ManagerBot",)
 
@@ -159,7 +159,6 @@ class ManagerBot(SteamBot[_I, _M]):
         :param receive_items: list of items/assets to receive from `partner`
         :return: `ManagerTradeOffer` model
         """
-
         return ManagerTradeOffer(
             _steam_offer=steam.TradeOffer(
                 message=message,
@@ -167,7 +166,7 @@ class ManagerBot(SteamBot[_I, _M]):
                 items_to_send=send_items,
                 items_to_receive=receive_items),
             owner=self,
-            partner=partner
+            partner=copy_user(self, partner) if partner.id64 not in self._connection._users else partner
         )
 
     @ready_required

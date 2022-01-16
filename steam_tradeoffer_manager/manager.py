@@ -140,7 +140,7 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
         f = join_multiple_in_string(tuple(owner))
         if len(owner) > 1: raise ValueError(f"Items to send owns by few or more manager bots {f}")
 
-        bot = owner.pop()
+        bot: _B = owner.pop()
         partner_id32, token = parse_trade_url(trade_url)
         partner = bot.get_user(partner_id32) or await bot.fetch_user(partner_id32)
 
