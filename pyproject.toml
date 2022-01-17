@@ -27,7 +27,7 @@ steamio = "^0.8.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
-pytest-asyncio = "0.16.0"
+pytest-asyncio = "0.17.1"
 pytest-mock = "^3.6.1"
 pytest-cov = "^3.0.0"
 mkdocs = "^1.2.3"
