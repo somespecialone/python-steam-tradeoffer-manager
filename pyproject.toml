@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "steam-tradeoffer-manager"
-version = "0.1.0"
+version = "0.1.1"
 description = "Small package that help managing steam trade offers and steam bots"
 license = "MIT"
 authors = ["somespecialone <tkachenkodmitriy@yahoo.com>"]
