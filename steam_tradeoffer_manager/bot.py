@@ -51,41 +51,43 @@ class ManagerBot(SteamBot[_I, _M]):
     """
 
     @overload
-    def __init__(self,
-                 username: str,
-                 password: str,
-                 shared_secret: str,
-                 identity_secret: str,
-                 *,
-                 id: int = None,
-                 whitelist: set[int] | None = None,
-                 user_agent: str | None = None,
-                 proxy: str | None = None,
-                 proxy_auth: BasicAuth | None = None,
-                 connector: BaseConnector | None = None,
-                 randomizer: Callable[[], int] | None = None,
-                 domain: str | None = None,
-                 offer_cancel_delay: timedelta | None = None,
-                 prefetch_games: tuple[SteamGame] = (),
-                 max_messages: int | None = ...,
-                 game: steam.Game | None = ...,
-                 games: list[steam.Game] = ...,
-                 state: steam.PersonaState | None = ...,
-                 ui_mode: steam.UIMode | None = ...,
-                 flags: steam.PersonaStateFlag | None = ...,
-                 force_kick: bool = ...,
-                 ): ...
+    def __init__(
+        self,
+        username: str,
+        password: str,
+        shared_secret: str,
+        identity_secret: str,
+        *,
+        id: int = None,
+        whitelist: set[int] | None = None,
+        user_agent: str | None = None,
+        proxy: str | None = None,
+        proxy_auth: BasicAuth | None = None,
+        connector: BaseConnector | None = None,
+        randomizer: Callable[[], int] | None = None,
+        domain: str | None = None,
+        offer_cancel_delay: timedelta | None = None,
+        prefetch_games: tuple[SteamGame] = (),
+        max_messages: int | None = ...,
+        game: steam.Game | None = ...,
+        games: list[steam.Game] = ...,
+        state: steam.PersonaState | None = ...,
+        ui_mode: steam.UIMode | None = ...,
+        flags: steam.PersonaStateFlag | None = ...,
+        force_kick: bool = ...,
+    ):
+        ...
 
     def __init__(
-            self,
-            username: str,
-            password: str,
-            shared_secret: str,
-            identity_secret: str,
-            *,
-            offer_cancel_delay: timedelta | None = None,
-            prefetch_games: tuple[SteamGame] = (),
-            **kwargs
+        self,
+        username: str,
+        password: str,
+        shared_secret: str,
+        identity_secret: str,
+        *,
+        offer_cancel_delay: timedelta | None = None,
+        prefetch_games: tuple[SteamGame] = (),
+        **kwargs,
     ):
         super().__init__(username, password, shared_secret, identity_secret, **kwargs)
 
@@ -143,12 +145,12 @@ class ManagerBot(SteamBot[_I, _M]):
 
     @ready_required
     def create_offer(
-            self,
-            partner: steam.User,
-            token: str | None = None,
-            message: str | None = None,
-            send_items: list[steam.Item] | None = None,
-            receive_items: list[steam.Item] | None = None,
+        self,
+        partner: steam.User,
+        token: str | None = None,
+        message: str | None = None,
+        send_items: list[steam.Item] | None = None,
+        receive_items: list[steam.Item] | None = None,
     ) -> ManagerTradeOffer["ManagerBot"]:
         """
         Create trade offer model, but not send it.
@@ -161,21 +163,19 @@ class ManagerBot(SteamBot[_I, _M]):
         """
         return ManagerTradeOffer(
             _steam_offer=steam.TradeOffer(
-                message=message,
-                token=token,
-                items_to_send=send_items,
-                items_to_receive=receive_items),
+                message=message, token=token, items_to_send=send_items, items_to_receive=receive_items
+            ),
             owner=self,
-            partner=copy_user(self, partner) if partner.id64 not in self._connection._users else partner
+            partner=copy_user(self, partner) if partner.id64 not in self._connection._users else partner,
         )
 
     @ready_required
     async def create_offer_from_trade_url(
-            self,
-            trade_url: str,
-            message: str | None = None,
-            send_items: list[steam.Item] | None = None,
-            receive_items: list[steam.Item] | None = None,
+        self,
+        trade_url: str,
+        message: str | None = None,
+        send_items: list[steam.Item] | None = None,
+        receive_items: list[steam.Item] | None = None,
     ) -> ManagerTradeOffer["ManagerBot"]:
         """
         Create trade offer model using trade url, but not send it.
@@ -189,13 +189,7 @@ class ManagerBot(SteamBot[_I, _M]):
         partner_id32, token = parse_trade_url(trade_url)
         partner = self.get_user(partner_id32) or await self.fetch_user(partner_id32)
 
-        return self.create_offer(
-            partner,
-            token,
-            message,
-            send_items,
-            receive_items
-        )
+        return self.create_offer(partner, token, message, send_items, receive_items)
 
     @ready_required
     def get_trade(self, id: int):
@@ -222,7 +216,8 @@ class ManagerBot(SteamBot[_I, _M]):
         if offer.owner is self:
             await offer.partner.send(trade=offer._steam_offer)
             self.manager_trades.add(offer)
-            if offer.cancel_delay is not None: offer._set_cancel_timeout()
+            if offer.cancel_delay is not None:
+                offer._set_cancel_timeout()
 
             # TODO: check if this is necessary
             self.loop.create_task(self.ws._connection.poll_trades(), name=f"{self.user} poll trades task")
@@ -277,7 +272,8 @@ class ManagerBot(SteamBot[_I, _M]):
             trade_url = await super().trade_url()
             _, self._trade_url_token = parse_trade_url(trade_url)
 
-        for game in self.prefetch_games: await self.inventory.fetch_game_inventory(game)  # fetch inventories
+        for game in self.prefetch_games:
+            await self.inventory.fetch_game_inventory(game)  # fetch inventories
 
     def dispatch(self, event: str, *args: Any, **kwargs: Any) -> None:
         super().dispatch(event, *args, **kwargs)

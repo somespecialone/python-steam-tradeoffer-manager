@@ -11,11 +11,11 @@ __all__ = ("mock_user", "mock_client", "mock_trade", "mock_client_user", "mock_i
 
 
 async def send(
-        self: steam.User,
-        content=None,
-        *,
-        trade: steam.TradeOffer | None = None,
-        image: steam.Image | None = None,
+    self: steam.User,
+    content=None,
+    *,
+    trade: steam.TradeOffer | None = None,
+    image: steam.Image | None = None,
 ):
     trade._update_from_send(self._state, trade_data(), self, active=True)
     trade.state = steam.TradeOfferState.Active
@@ -36,9 +36,11 @@ class WsMock:
     def __init__(self, state):
         self._connection = state
 
-    async def change_presence(self, *args, **kwargs): pass
+    async def change_presence(self, *args, **kwargs):
+        pass
 
-    async def handle_close(self): pass
+    async def handle_close(self):
+        pass
 
 
 async def login(self: steam.Client, username: str, password: str, *, shared_secret: str | None = None):

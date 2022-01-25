@@ -7,6 +7,7 @@
 [![codecov](https://codecov.io/gh/somespecialone/python-steam-tradeoffer-manager/branch/master/graph/badge.svg?token=H3JL81SL7P)](https://codecov.io/gh/somespecialone/python-steam-tradeoffer-manager)
 [![CodeFactor](https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager/badge)](https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager)
 [![versions](https://img.shields.io/pypi/pyversions/steam-tradeoffer-manager)](https://pypi.org/project/steam-tradeoffer-manager)
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![steam](https://shields.io/badge/steam-1b2838?logo=steam)](https://store.steampowered.com/)
 
 ## Installation

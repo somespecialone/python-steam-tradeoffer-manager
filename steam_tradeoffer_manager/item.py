@@ -9,6 +9,7 @@ _O = TypeVar("_O", bound="bot.ManagerBot")
 
 class BotItem(Item, Generic[_O]):
     """Almost `steam.Item` except one thing - `owner is `ManagerBot``"""
+
     owner: _O
 
     def __init__(self, item: Item, owner: _O):

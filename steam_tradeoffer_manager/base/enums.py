@@ -2,15 +2,15 @@ import enum
 from random import randint, random
 from typing import Callable
 
-__all__ = ('BotState', 'ONCE_EVERY')
+__all__ = ("BotState", "ONCE_EVERY")
 
 
 class BotState(enum.Enum):
-    Active = 'active'  # working fine
-    Waiting = 'waiting'  # waiting until ready
-    InvalidCredentials = 'invalid credentials'
-    UnknownError = 'unknown exception'  # stopped by error
-    Stopped = 'stopped'  # just stopped
+    Active = "active"  # working fine
+    Waiting = "waiting"  # waiting until ready
+    InvalidCredentials = "invalid credentials"
+    UnknownError = "unknown exception"  # stopped by error
+    Stopped = "stopped"  # just stopped
 
 
 class Timings:

@@ -12,17 +12,20 @@ from data import *
 class TestBotExceptions:
     @pytest.fixture
     async def bot(self, event_loop):
-        bot_instance = ManagerBot(**{
-            "username": BOT_USERNAME,
-            "password": BOT_PASSWORD,
-            "shared_secret": SHARED_SECRET,
-            "identity_secret": IDENTITY_SECRET,
-        })
+        bot_instance = ManagerBot(
+            **{
+                "username": BOT_USERNAME,
+                "password": BOT_PASSWORD,
+                "shared_secret": SHARED_SECRET,
+                "identity_secret": IDENTITY_SECRET,
+            }
+        )
         bot_instance.loop = event_loop
 
         yield bot_instance
 
-        if not bot_instance.is_closed(): await bot_instance.close()
+        if not bot_instance.is_closed():
+            await bot_instance.close()
         bot_instance.__del__()
 
     @pytest.mark.asyncio

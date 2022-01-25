@@ -6,11 +6,11 @@ from .abc import AbstractBasePool
 from .exceptions import ConstraintException
 from ..utils import join_multiple_in_string
 
-__all__ = ('PoolBotMixin', 'ConstraintsMixin')
+__all__ = ("PoolBotMixin", "ConstraintsMixin")
 
 _log = logging.getLogger(__name__)
 _P = TypeVar("_P", bound=AbstractBasePool)
-_I = TypeVar('_I')
+_I = TypeVar("_I")
 
 
 class ConstraintsMixin:
@@ -20,6 +20,7 @@ class ConstraintsMixin:
     but always must be passed like arguments to `__init__` and be `hashable`.
     Implement `__del__` method to clean up hashes in storage while garbage collecting,
     """
+
     __storage__: Final[dict[str, set[int]]] = {}
 
     constraints: Sequence[str | Sequence[str]] = ()
@@ -27,13 +28,16 @@ class ConstraintsMixin:
 
     def __init_subclass__(cls, dimension: str = None, **kwargs):
         super().__init_subclass__(**kwargs)
-        subclass_dimension = getattr(cls, 'dimension', None)
+        subclass_dimension = getattr(cls, "dimension", None)
         arg_dimension = dimension
         if subclass_dimension and arg_dimension:
             import warnings
 
-            warnings.warn('Subclass overrides `dimension` and `dimension` arg has been passed to subclass init. '
-                          f'Used [{subclass_dimension}] by default.', stacklevel=len(inspect.stack()) + 1)
+            warnings.warn(
+                "Subclass overrides `dimension` and `dimension` arg has been passed to subclass init. "
+                f"Used [{subclass_dimension}] by default.",
+                stacklevel=len(inspect.stack()) + 1,
+            )
 
         if subclass_dimension:
             cls.dimension = subclass_dimension
@@ -78,7 +82,7 @@ class ConstraintsMixin:
             if h in self.__storage__[self.dimension]:
                 f = join_multiple_in_string(self.constraints)
                 # would be great if I write violated constraints here
-                raise ConstraintException(f'Instance with unique values({f}) already created.')
+                raise ConstraintException(f"Instance with unique values({f}) already created.")
 
         self.__storage__[self.dimension].update(self._hashes)
 
@@ -88,6 +92,7 @@ class ConstraintsMixin:
 
 class _MappingPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):  # pragma: no cover
     """Mixin for bot. Contains required methods to interact with pool"""
+
     # maps to ids and pool
     __ids__: Final[dict[str, _I]] = {}
     __pools__: Final[dict[str, _P]] = {}
@@ -118,11 +123,11 @@ class _PropertyPoolBotMixin(ConstraintsMixin, Generic[_I, _P]):
     # pure properties
     @property
     def id(self) -> _I | None:
-        return getattr(self, '_id', None)
+        return getattr(self, "_id", None)
 
     @property
     def pool(self) -> _P | None:
-        return getattr(self, '_pool', None)
+        return getattr(self, "_pool", None)
 
     def __repr__(self) -> str:
         return f"<{self.__class__.__name__} id={self.id}>"

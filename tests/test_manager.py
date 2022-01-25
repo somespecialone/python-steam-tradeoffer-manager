@@ -10,13 +10,15 @@ from steam_tradeoffer_manager.base.exceptions import ConstraintException
 class TestManager:
     @staticmethod
     def get_bot(index: int) -> ManagerBot:
-        return ManagerBot(**{
-            "username": BOT_USERNAME + str(index),
-            "password": BOT_PASSWORD,
-            "shared_secret": SHARED_SECRET,
-            "identity_secret": IDENTITY_SECRET,
-            "id": BOT_ID + index
-        })
+        return ManagerBot(
+            **{
+                "username": BOT_USERNAME + str(index),
+                "password": BOT_PASSWORD,
+                "shared_secret": SHARED_SECRET,
+                "identity_secret": IDENTITY_SECRET,
+                "id": BOT_ID + index,
+            }
+        )
 
     @pytest.fixture(scope="class")
     async def manager(self, event_loop):
@@ -68,7 +70,7 @@ class TestManager:
             [item],
         )
         await offer.send()
-        await asyncio.sleep(.01)  # wait for dispatch to manager and add offer to trades
+        await asyncio.sleep(0.01)  # wait for dispatch to manager and add offer to trades
 
         assert len(manager.trades) == 1
 
@@ -82,7 +84,7 @@ class TestManager:
             [item],
         )
         await offer.send()
-        await asyncio.sleep(.01)  # wait for dispatch to manager and add offer to trades
+        await asyncio.sleep(0.01)  # wait for dispatch to manager and add offer to trades
 
         assert offer in manager.trades
 

@@ -8,7 +8,7 @@ from .item import BotItem
 
 __all__ = ("GamesInventory",)
 
-_B = TypeVar("_B", bound='bot.ManagerBot')
+_B = TypeVar("_B", bound="bot.ManagerBot")
 _D = TypeVar("_D")
 SteamGame: TypeAlias = "Game | StatefulGame"
 BotInventory: TypeAlias = "BaseInventory[BotItem[_B]]"
@@ -18,7 +18,7 @@ AssetId: TypeAlias = "int"
 class GamesInventory(MutableMapping[AssetId, BotItem[_B]], Generic[_B]):
     """Container class created to store fetched inventories"""
 
-    __slots__ = ('_items_storage', 'owner', "_inventories_storage")
+    __slots__ = ("_items_storage", "owner", "_inventories_storage")
 
     def __init__(self, owner: _B):
         self._inventories_storage: dict[int, BotInventory] = {}  # default inventories with refs to items

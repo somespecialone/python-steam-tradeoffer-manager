@@ -44,6 +44,7 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
         if bot.pool:
             import warnings
             import inspect
+
             msg = f"Bot with id {bot.id} already in pool"
 
             if raise_:
@@ -76,7 +77,7 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
     def _bind(self, bot: _B) -> None:
         if not bot.id:
             raise ValueError(f"Bot id is {bot.id}")
-        setattr(bot, '_pool', self)
+        setattr(bot, "_pool", self)
         self._store[bot.id] = bot
 
     # container methods https://docs.python.org/3/reference/datamodel.html#emulating-container-types

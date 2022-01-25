@@ -8,10 +8,10 @@ from aiohttp import BasicAuth, BaseConnector
 from .enums import BotState
 from .mixins import PoolBotMixin
 
-__all__ = ('SteamBot',)
+__all__ = ("SteamBot",)
 
 _log = logging.getLogger(__name__)
-_P = TypeVar("_P", bound='pool.SteamBotPool')
+_P = TypeVar("_P", bound="pool.SteamBotPool")
 _I = TypeVar("_I", bound=int)
 
 
@@ -21,25 +21,25 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
     `id` attr must be steam id64
     """
 
-    constraints = ('username',)
-    dimension = 'steam'
+    constraints = ("username",)
+    dimension = "steam"
 
     def __init__(
-            self,
-            username: str,
-            password: str,
-            shared_secret: str,
-            identity_secret: str,
-            *,
-            id: _I = None,
-            whitelist: set[int] | None = None,
-            user_agent: str | None = None,
-            proxy: str | None = None,
-            proxy_auth: BasicAuth | None = None,
-            connector: BaseConnector | None = None,
-            randomizer: Callable[[], int] | None = None,
-            domain: str | None = None,
-            **options: Any,
+        self,
+        username: str,
+        password: str,
+        shared_secret: str,
+        identity_secret: str,
+        *,
+        id: _I = None,
+        whitelist: set[int] | None = None,
+        user_agent: str | None = None,
+        proxy: str | None = None,
+        proxy_auth: BasicAuth | None = None,
+        connector: BaseConnector | None = None,
+        randomizer: Callable[[], int] | None = None,
+        domain: str | None = None,
+        **options: Any,
     ) -> None:
         self._id = id
 
@@ -167,7 +167,8 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
 
     async def on_ready(self) -> None:
         self._state = BotState.Active
-        if not self.id: setattr(self, "_id", self.user.id64)  # id will be automatically set when client is ready
+        if not self.id:
+            setattr(self, "_id", self.user.id64)  # id will be automatically set when client is ready
 
         _log.info(f"Bot {self.user} is ready")
 
@@ -198,10 +199,12 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
         if not self.is_closed():
             import warnings
 
-            warnings.warn(f'Unstopped bot {self}!', ResourceWarning, source=self)
-            if self._refresh_task: self._refresh_task.cancel()
+            warnings.warn(f"Unstopped bot {self}!", ResourceWarning, source=self)
+            if self._refresh_task:
+                self._refresh_task.cancel()
             # maybe asyncio.call_exception_handler needed
-        if self.pool: del self.pool[self.id]
+        if self.pool:
+            del self.pool[self.id]
         super().__del__()
 
     def __str__(self) -> str:

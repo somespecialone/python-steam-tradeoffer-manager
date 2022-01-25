@@ -6,11 +6,12 @@ import steam.state
 
 from .base import ReadyRequired
 
-__all__ = ('ready_required', "parse_trade_url", "join_multiple_in_string")
+__all__ = ("ready_required", "parse_trade_url", "join_multiple_in_string", "copy_user")
 
 
 class _HasIsReadyProtocol(Protocol):
-    def is_ready(self) -> bool: ...
+    def is_ready(self) -> bool:
+        ...
 
 
 def ready_required(func):
@@ -20,6 +21,7 @@ def ready_required(func):
             return func(self, *args, **kwargs)
         else:
             raise ReadyRequired("Client is not ready or bot is closed/stopped!")
+
     return wrapper
 
 
@@ -35,9 +37,10 @@ def ready_required(func):
 #
 #     return inner
 
+
 def parse_trade_url(trade_url: str) -> tuple[int, str]:
     qs = urllib.parse.parse_qs(urllib.parse.urlparse(trade_url).query)
-    return int(qs['partner'][0]), qs['token'][0]
+    return int(qs["partner"][0]), qs["token"][0]
 
 
 def join_multiple_in_string(fs: Sequence) -> str:

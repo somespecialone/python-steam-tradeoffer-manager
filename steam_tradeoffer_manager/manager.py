@@ -22,6 +22,7 @@ _I = TypeVar("_I", bound=int)
 
 class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
     """Manager class..."""
+
     randomizer = ONCE_EVERY.SIX_HOURS
     offer_cancel_delay: timedelta | None = timedelta(minutes=5)
     prefetch_games: tuple[Game] = ()
@@ -39,33 +40,30 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
         return self.trades.get(id)
 
     def _create_offer(
-            self,
-            bot: _B,
-            partner: User,
-            token: str | None,
-            message: str | None,
-            send_items: list[BotItem] | None,
-            receive_items: list[Item] | None,
+        self,
+        bot: _B,
+        partner: User,
+        token: str | None,
+        message: str | None,
+        send_items: list[BotItem] | None,
+        receive_items: list[Item] | None,
     ) -> ManagerTradeOffer[_B]:
-        if bot not in self: raise ValueError(f"Bot {bot.user} not bounded to this manager")
+        if bot not in self:
+            raise ValueError(f"Bot {bot.user} not bounded to this manager")
 
         return bot.create_offer(
-            partner=partner,
-            token=token,
-            message=message,
-            send_items=send_items,
-            receive_items=receive_items
+            partner=partner, token=token, message=message, send_items=send_items, receive_items=receive_items
         )
 
     def _create_offers(
-            self,
-            owners: set[_B],
-            partner: User,
-            token: str | None,
-            message: str | None,
-            send_items: list[BotItem] | None,
-            receive_items: list[Item] | None,
-            msg_in_all_offers: bool
+        self,
+        owners: set[_B],
+        partner: User,
+        token: str | None,
+        message: str | None,
+        send_items: list[BotItem] | None,
+        receive_items: list[Item] | None,
+        msg_in_all_offers: bool,
     ) -> list[ManagerTradeOffer[_B]]:
         trades: list[ManagerTradeOffer[_B]] = []
 
@@ -79,7 +77,7 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
                     token=token,
                     message=message if (not message_flag or msg_in_all_offers) else None,
                     send_items=[item for item in send_items if item.owner is bot],
-                    receive_items=receive_items if not receive_items_flag else None
+                    receive_items=receive_items if not receive_items_flag else None,
                 )
             )
             receive_items_flag = True
@@ -88,12 +86,12 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
         return trades
 
     def create_offer(
-            self,
-            partner: User,
-            token: str | None = None,
-            message: str | None = None,
-            send_items: list[BotItem] | None = None,
-            receive_items: list[Item] | None = None,
+        self,
+        partner: User,
+        token: str | None = None,
+        message: str | None = None,
+        send_items: list[BotItem] | None = None,
+        receive_items: list[Item] | None = None,
     ) -> ManagerTradeOffer[_B]:
         """
         Create `ManagerTradeOffer`. Consider that items must be owned by one bot.
@@ -108,7 +106,8 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
         """
         owner = {item.owner for item in send_items}
         f = join_multiple_in_string(tuple(owner))
-        if len(owner) > 1: raise ValueError(f"Items to send owns by few or more manager bots {f}")
+        if len(owner) > 1:
+            raise ValueError(f"Items to send owns by few or more manager bots {f}")
 
         return self._create_offer(
             bot=owner.pop(),
@@ -116,15 +115,15 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
             token=token,
             message=message,
             send_items=send_items,
-            receive_items=receive_items
+            receive_items=receive_items,
         )
 
     async def create_offer_from_url(
-            self,
-            trade_url: str,
-            message: str | None = None,
-            send_items: list[BotItem] | None = None,
-            receive_items: list[Item] | None = None,
+        self,
+        trade_url: str,
+        message: str | None = None,
+        send_items: list[BotItem] | None = None,
+        receive_items: list[Item] | None = None,
     ) -> ManagerTradeOffer[_B]:
         """
         Create `ManagerTradeOffer` from trade url. Requires fetching user model.
@@ -138,30 +137,26 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
         """
         owner = {item.owner for item in send_items}
         f = join_multiple_in_string(tuple(owner))
-        if len(owner) > 1: raise ValueError(f"Items to send owns by few or more manager bots {f}")
+        if len(owner) > 1:
+            raise ValueError(f"Items to send owns by few or more manager bots {f}")
 
         bot: _B = owner.pop()
         partner_id32, token = parse_trade_url(trade_url)
         partner = bot.get_user(partner_id32) or await bot.fetch_user(partner_id32)
 
         return self._create_offer(
-            bot=bot,
-            partner=partner,
-            token=token,
-            message=message,
-            send_items=send_items,
-            receive_items=receive_items
+            bot=bot, partner=partner, token=token, message=message, send_items=send_items, receive_items=receive_items
         )
 
     def create_offers(
-            self,
-            partner: User,
-            token: str | None = None,
-            message: str | None = None,
-            send_items: list[BotItem] | None = None,
-            receive_items: list[Item] | None = None,
-            *,
-            msg_in_all_offers: bool = False
+        self,
+        partner: User,
+        token: str | None = None,
+        message: str | None = None,
+        send_items: list[BotItem] | None = None,
+        receive_items: list[Item] | None = None,
+        *,
+        msg_in_all_offers: bool = False,
     ) -> list[ManagerTradeOffer[_B]]:
         """
         Creates different trade offers if items placed in different bots inventories.
@@ -184,17 +179,17 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
             message=message,
             send_items=send_items,
             receive_items=receive_items,
-            msg_in_all_offers=msg_in_all_offers
+            msg_in_all_offers=msg_in_all_offers,
         )
 
     async def create_offers_from_url(
-            self,
-            trade_url: str,
-            message: str | None = None,
-            send_items: list[BotItem] | None = None,
-            receive_items: list[Item] | None = None,
-            *,
-            msg_in_all_offers: bool = False
+        self,
+        trade_url: str,
+        message: str | None = None,
+        send_items: list[BotItem] | None = None,
+        receive_items: list[Item] | None = None,
+        *,
+        msg_in_all_offers: bool = False,
     ) -> list[ManagerTradeOffer[_B]]:
         """
         Creates different trade offers from trade url if items placed in different bots inventories.
@@ -222,11 +217,12 @@ class TradeOfferManager(SteamBotPool[_I, _B], ManagerDispatchMixin):
             message=message,
             send_items=send_items,
             receive_items=receive_items,
-            msg_in_all_offers=msg_in_all_offers
+            msg_in_all_offers=msg_in_all_offers,
         )
 
     async def on_inventory_update(self, bot: _B, inventory: BotInventory) -> None:
-        for item in inventory: self.items.add(item)
+        for item in inventory:
+            self.items.add(item)
 
     async def on_manager_trade_send(self, bot: _B, trade: ManagerTradeOffer) -> None:
         self.trades.add(trade)

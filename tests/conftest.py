@@ -26,6 +26,7 @@ async def bot(event_loop):
 
     yield bot_instance
 
-    if not bot_instance.is_closed(): await bot_instance.close()
+    if not bot_instance.is_closed():
+        await bot_instance.close()
 
     bot_instance.__del__()

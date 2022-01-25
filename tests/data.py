@@ -27,7 +27,7 @@ def bot_data():
         "password": BOT_PASSWORD,
         "shared_secret": SHARED_SECRET,
         "identity_secret": IDENTITY_SECRET,
-        "id": BOT_ID
+        "id": BOT_ID,
     }
 
 
@@ -57,10 +57,10 @@ def user_dict():
         "loccityid": 123,
         "gameid": "730",  # game app id
         "gameextrainfo": "str",  # game name
-        "timecreated": 123,
-        "lastlogoff": 123,
-        "last_logon": 123,
-        "last_seen_online": 123,
+        "timecreated": time() - 3600 * 24 * 12,
+        "lastlogoff": time() - 3600 * 24 * 2,
+        "last_logon": time() - 3600 * 12,
+        "last_seen_online": time() - 3600 * 1.5,
     }
 
 
@@ -87,10 +87,10 @@ def client_user_dict():
         "loccityid": 123,
         "gameid": "730",  # game app id
         "gameextrainfo": "str",  # game name
-        "timecreated": 123,
-        "lastlogoff": 123,
-        "last_logon": 123,
-        "last_seen_online": 123,
+        "timecreated": time() - 3600 * 24 * 12,
+        "lastlogoff": time() - 3600 * 24 * 2,
+        "last_logon": time() - 3600 * 12,
+        "last_seen_online": time() - 3600 * 1.5,
     }
 
 
@@ -118,7 +118,7 @@ def trade_data():
         "items_to_receive": [],
         "is_our_offer": True,
         "from_real_time_trade": False,
-        "confirmation_method": 1  # 2 is mobile 1 might be email? not a clue what other values are
+        "confirmation_method": 1,  # 2 is mobile 1 might be email? not a clue what other values are
     }
 
 

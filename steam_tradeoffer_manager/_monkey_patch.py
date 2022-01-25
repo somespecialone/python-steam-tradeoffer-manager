@@ -49,8 +49,8 @@ state.ConnectionState.poll_trades = poll_trades_patched
 async def get_api_key_patched(self: http.HTTPClient) -> str | None:
     resp = await self.get(models.URL.COMMUNITY / "dev/apikey")
     if (
-            "<h2>Access Denied</h2>" in resp
-            or "You must have a validated email address to create a Steam Web API key" in resp
+        "<h2>Access Denied</h2>" in resp
+        or "You must have a validated email address to create a Steam Web API key" in resp
     ):
         return
 

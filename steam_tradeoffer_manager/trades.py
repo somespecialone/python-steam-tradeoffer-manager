@@ -20,6 +20,7 @@ class ManagerBotTrades(MutableMapping[TradeOfferId, ManagerTradeOffer[_B]], Gene
     """
     ManagerTradeOffer's storage for ManagerBot.
     """
+
     __slots__ = ("owner", "_storage")
 
     def __init__(self, owner: _B):
@@ -32,6 +33,7 @@ class ManagerBotTrades(MutableMapping[TradeOfferId, ManagerTradeOffer[_B]], Gene
 
         if offer.id in self:
             import warnings
+
             warnings.warn(f"Trade offer {offer.id} already in storage!")
 
         self[offer.id] = offer

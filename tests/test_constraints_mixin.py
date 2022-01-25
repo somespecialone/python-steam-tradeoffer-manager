@@ -10,7 +10,8 @@ def get_c():
         constraints = ("arg1", ("arg2", "arg3"))
         dimension = "test_dimension"
 
-        def __init__(self, arg1, arg2, arg3): ...
+        def __init__(self, arg1, arg2, arg3):
+            ...
 
     return ConstraintsSubclass
 
