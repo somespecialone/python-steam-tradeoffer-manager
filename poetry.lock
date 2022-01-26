@@ -87,11 +87,11 @@ lxml = ["lxml"]
 
 [[package]]
 name = "betterproto"
-version = "2.0.0b3"
+version = "2.0.0b4"
 description = "A better Protobuf / gRPC generator & library"
 category = "main"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.6.2,<4.0"
 
 [package.dependencies]
 grpclib = ">=0.4.1,<0.5.0"
@@ -654,18 +654,25 @@ version = "0.8.5"
 description = "A Python wrapper for the Steam API"
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "^3.7"
+develop = false
 
 [package.dependencies]
 aiohttp = ">=3.7,<3.9"
-beautifulsoup4 = ">=4.10.0,<5.0.0"
-betterproto = "2.0.0b3"
-cryptography = ">=36,<37"
-tomli = ">=1,<2"
+beautifulsoup4 = "^4.10.0"
+betterproto = "2.0.0b4"
+cryptography = "^36"
+tomli = "~1"
 typing-extensions = "4.0.1"
 
 [package.extras]
-docs = ["sphinx (>=4.2.0,<5.0.0)", "myst-parser (>=0.16)", "mypy (>=0.910,<0.911)", "sphinxcontrib_trio (==1.1.2)", "csscompressor", "htmlmin", "rjsmin"]
+docs = ["sphinx (>=4.2.0,<5.0.0)", "myst-parser (>=0.16)", "mypy (>=0.931,<0.932)", "sphinxcontrib_trio (==1.1.2)", "csscompressor", "htmlmin", "rjsmin"]
+
+[package.source]
+type = "git"
+url = "https://github.com/Gobot1234/steam.py"
+reference = "main"
+resolved_reference = "827167201bf6cd563a3b5e219db3641b8f49812a"
 
 [[package]]
 name = "toml"
@@ -729,7 +736,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "8c614a4efcd525ca8118e420c42ab672f6b6fe76c2aaf4cf6c49eae1ec015525"
+content-hash = "d6bc72e3828be1e57ce2567f8b140bba11a963623dc37e2c213c20bfcdba5a2b"
 
 [metadata.files]
 aiohttp = [
@@ -831,8 +838,8 @@ beautifulsoup4 = [
     {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
 ]
 betterproto = [
-    {file = "betterproto-2.0.0b3-py3-none-any.whl", hash = "sha256:f2393a97ed8f70a0f1cb92f2590a1b0555267d0e971bc0a1d598fb564a2e7d2f"},
-    {file = "betterproto-2.0.0b3.tar.gz", hash = "sha256:1320de556289d8c825e1c28a9b3899030c653a0c8c0a7c0476b4dac5747dfec0"},
+    {file = "betterproto-2.0.0b4-py3-none-any.whl", hash = "sha256:6b807038df17a7896cc1f98b42f64eed24c2f350b6d10b2854501f8b9b7d3d1e"},
+    {file = "betterproto-2.0.0b4.tar.gz", hash = "sha256:99bc6f866fe9c30100fe438662439205f35bc0e65e4e736c46a6ebfea02c3e7b"},
 ]
 black = [
     {file = "black-21.12b0-py3-none-any.whl", hash = "sha256:a615e69ae185e08fdd73e4715e260e2479c861b5740057fde6e8b4e3b7dd589f"},
@@ -1345,10 +1352,7 @@ soupsieve = [
     {file = "soupsieve-2.3.1-py3-none-any.whl", hash = "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb"},
     {file = "soupsieve-2.3.1.tar.gz", hash = "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"},
 ]
-steamio = [
-    {file = "steamio-0.8.5-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:706ccb40272468917b49e303533f99ef517ebe067cfbb2ee7a5b830ad525051d"},
-    {file = "steamio-0.8.5.tar.gz", hash = "sha256:b08f6660988c9b66f26013bd19a14ad813cd2ee555dfc885c4c1e4dbcb41fb57"},
-]
+steamio = []
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
