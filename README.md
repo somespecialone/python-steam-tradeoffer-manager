@@ -23,4 +23,17 @@ $ pipenv install steam-tradeoffer-manager
 $ poetry add steam-tradeoffer-manager
 ```
 
+### Warning ⚠
+
+There is one way to install this library now(until [steamio](https://github.com/Gobot1234/steam.py) new version with
+bugfixes will be released):
+
+```sh
+$ pip install git+https://github.com/somespecialone/python-steam-tradeoffer-manager.git@master
+
+$ pipenv install git+https://github.com/somespecialone/python-steam-tradeoffer-manager.git@master
+
+$ poetry add git+https://github.com/somespecialone/python-steam-tradeoffer-manager#master
+```
+
 ***Coming soon...***
