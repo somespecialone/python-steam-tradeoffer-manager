@@ -11,13 +11,13 @@
         <link rel="canonical" href="https://somespecialone.github.io/python-steam-tradeoffer-manager/">
       
       <link rel="icon" href="favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.6">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
     
     
   <title>PSTM</title>
 
     
-      <link rel="stylesheet" href="assets/stylesheets/main.cd566b2a.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.6e60f8b8.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.e6a45f82.min.css">
@@ -299,9 +299,53 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Overview
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         Overview
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    Warning ⚠
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -430,6 +474,34 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    Warning ⚠
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -446,7 +518,34 @@
 
 
 <h1 id="python-steam-tradeoffer-manager">Python-steam-tradeoffer-manager<a class="headerlink" href="#python-steam-tradeoffer-manager" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/SomeSpecialOne/python-steam-tradeoffer-manager/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/SomeSpecialOne/python-steam-tradeoffer-manager?style=flat-square" /></a></p>
+<p><a href="https://github.com/somespecialone/python-steam-tradeoffer-manager/blob/master/LICENSE"><img alt="license" src="https://img.shields.io/github/license/somespecialone/python-steam-tradeoffer-manager" /></a>
+<a href="https://pypi.org/project/steam-tradeoffer-manager"><img alt="pypi" src="https://img.shields.io/pypi/v/steam-tradeoffer-manager" /></a>
+<a href="https://github.com/somespecialone/python-steam-tradeoffer-manager/actions/workflows/docs.yml"><img alt="Docs" src="https://github.com/somespecialone/python-steam-tradeoffer-manager/actions/workflows/docs.yml/badge.svg" /></a>
+<a href="https://github.com/somespecialone/python-steam-tradeoffer-manager/actions/workflows/tests.yml"><img alt="Tests" src="https://github.com/somespecialone/python-steam-tradeoffer-manager/actions/workflows/tests.yml/badge.svg" /></a>
+<a href="https://codecov.io/gh/somespecialone/python-steam-tradeoffer-manager"><img alt="codecov" src="https://codecov.io/gh/somespecialone/python-steam-tradeoffer-manager/branch/master/graph/badge.svg?token=H3JL81SL7P" /></a>
+<a href="https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager"><img alt="CodeFactor" src="https://www.codefactor.io/repository/github/somespecialone/python-steam-tradeoffer-manager/badge" /></a>
+<a href="https://pypi.org/project/steam-tradeoffer-manager"><img alt="versions" src="https://img.shields.io/pypi/pyversions/steam-tradeoffer-manager" /></a>
+<a href="https://github.com/psf/black"><img alt="black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
+<a href="https://store.steampowered.com/"><img alt="steam" src="https://shields.io/badge/steam-1b2838?logo=steam" /></a></p>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash"># using pip
+$ pip install steam-tradeoffer-manager
+
+# using pipenv
+$ pipenv install steam-tradeoffer-manager
+
+# using poetry
+$ poetry add steam-tradeoffer-manager
+</code></pre>
+<h3 id="warning">Warning ⚠<a class="headerlink" href="#warning" title="Permanent link">&para;</a></h3>
+<p>There is one way to install this library now(until <a href="https://github.com/Gobot1234/steam.py">steamio</a> new version with
+bugfixes will be released):</p>
+<pre><code class="language-sh">$ pip install git+https://github.com/somespecialone/python-steam-tradeoffer-manager.git@master
+
+$ pipenv install git+https://github.com/somespecialone/python-steam-tradeoffer-manager.git@master
+
+$ poetry add git+https://github.com/somespecialone/python-steam-tradeoffer-manager#master
+</code></pre>
 <p><strong><em>Coming soon...</em></strong></p>
 
   <hr>
@@ -454,7 +553,7 @@
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2022</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 26, 2022</span>
       
     
   </small>
@@ -558,7 +657,7 @@
     <script id="__config" type="application/json">{"base": ".", "features": ["navigation.instant", "navigation.tracking", "navigation.top", "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.22074ed6.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.1514a9a0.min.js"></script>
+      <script src="assets/javascripts/bundle.960e086b.min.js"></script>
       
     
   </body>
