@@ -24,7 +24,7 @@ class SteamBotPool(Generic[_I, _B], AbstractBasePool):
     domain: str = "steam.py"  # domain to register new api key
 
     def __init__(self):
-        self.loop = asyncio.get_running_loop()
+        self.loop = asyncio.get_event_loop_policy().get_event_loop()
         self._store: dict[_I, _B] = {}
 
     def startup(self):

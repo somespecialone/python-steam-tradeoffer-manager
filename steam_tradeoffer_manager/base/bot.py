@@ -70,7 +70,7 @@ class SteamBot(steam.Client, PoolBotMixin[_I, _P]):
     # setter for steam.Client.__init__
     @loop.setter
     def loop(self, _):
-        self._loop = asyncio.get_event_loop()
+        self._loop = asyncio.get_event_loop_policy().get_event_loop()
 
     @property
     def state(self) -> BotState:
