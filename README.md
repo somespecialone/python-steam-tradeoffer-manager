@@ -23,7 +23,8 @@ $ pipenv install steam-tradeoffer-manager
 $ poetry add steam-tradeoffer-manager
 ```
 
-If you want to have the latest updates not included in release and published on PyPI:
+If you want to have the latest updates not included in release and not published on PyPI yet:
+
 ```sh
 $ pip install git+https://github.com/somespecialone/python-steam-tradeoffer-manager.git@master
 
@@ -33,3 +34,8 @@ $ poetry add git+https://github.com/somespecialone/python-steam-tradeoffer-manag
 ```
 
 ***Coming soon...***
+
+### TODO 📑
+
+- [ ] Readme
+- [ ] Examples
