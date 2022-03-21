@@ -645,7 +645,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "steamio"
-version = "0.8.6"
+version = "0.8.8"
 description = "A Python wrapper for the Steam API"
 category = "main"
 optional = false
@@ -1351,8 +1351,8 @@ soupsieve = [
     {file = "soupsieve-2.3.1.tar.gz", hash = "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"},
 ]
 steamio = [
-    {file = "steamio-0.8.6-cp310-cp310-manylinux_2_31_x86_64.whl", hash = "sha256:7b1f557f995ef3b0e4c4305a41455f32e354b5701fb60f2bbac7f6e2b7bd14a9"},
-    {file = "steamio-0.8.6.tar.gz", hash = "sha256:95e6cddb35f32be6a074c33a13a9ad1f5e7bc625fe8c8507021a1b7d1fefac3c"},
+    {file = "steamio-0.8.8-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:af18ca2046cdb7dbab67e04d31ce0994e34b03df292b46f11db44ace8375fa2e"},
+    {file = "steamio-0.8.8.tar.gz", hash = "sha256:42ebb90db261b543257803ecb1e1823d8268bc0c3a9633c244dd1f9b3353b1e1"},
 ]
 tomli = [
     {file = "tomli-1.2.3-py3-none-any.whl", hash = "sha256:e3069e4be3ead9668e21cb9b074cd948f7b3113fd9c8bba083f48247aab8b11c"},
