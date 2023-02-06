@@ -23,7 +23,7 @@ packages = [{ include = "steam_tradeoffer_manager" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-steamio = "^0.8.6"
+steamio = ">=0.8.6,<0.10.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
